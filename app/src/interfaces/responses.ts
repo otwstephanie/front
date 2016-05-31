@@ -11,6 +11,16 @@ export interface MindsChannelResponse extends MindsResponse {
   channel : MindsUser
 }
 
+export interface MindsQuestionResponse extends MindsResponse {
+  question : any
+}
+
+export interface MindsQuestionListResponse extends MindsResponse {
+  questions : Array<any>,
+  'load-next' : string
+}
+
+
 export interface MindsBlogResponse extends MindsResponse {
   blog : any
 }

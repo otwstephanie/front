@@ -12,6 +12,14 @@ export interface MindsBlogEntity {
 	ownerObj : any
 }
 
+export interface MindsQuestionEntity {
+	guid : string,
+	title : string,
+	description : string,
+	ownerObj : any
+	category: any
+}
+
 export interface Message {
 
 }

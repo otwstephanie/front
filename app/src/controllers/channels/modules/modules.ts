@@ -6,6 +6,8 @@ import { Client } from '../../../services/api';
 import { CARDS } from '../../../controllers/cards/cards';
 import { Material } from '../../../directives/material';
 import { BlogCard } from '../../../plugins/blog/card/card';
+import { QuestionCard } from '../../../controllers/objects/question/question';
+import { AnswerCard } from '../../../controllers/objects/answer/answer';
 
 import { AttachmentService } from '../../../services/attachment';
 
@@ -30,6 +32,11 @@ import { AttachmentService } from '../../../services/attachment';
         <span class="m-thumb-image" [ngStyle]="{'background-image': 'url(' + object.thumbnail_src + ')'}"></span>
         <i class="material-icons">explicit</i>
       </a>
+    </div>
+     <div *ngIf="type != 'blog'" style="min-height:0;">
+      <minds-card-question [object]="question" *ngFor="#question of items" class="mdl-card" style="border-radius:0;">
+        {{question.title}}
+      </minds-card-question>
     </div>
     <div *ngIf="type == 'blog'" style="min-height:0;">
       <minds-card-blog [object]="blog" *ngFor="#blog of items" class="mdl-card" style="border-radius:0;">
@@ -77,6 +84,10 @@ export class ChannelModules {
 
     var endpoint = `api/v1/entities/${containerType}/all/${guid}`;
     switch(this.type){
+      case 'question':
+        endpoint = `api/v1/question/${containerType}/${guid}`;
+        this.limit = 4;
+        break;
       case 'blog':
         endpoint = `api/v1/blog/${containerType}/${guid}`;
         this.limit = 3;
@@ -92,14 +103,20 @@ export class ChannelModules {
 
     this.client.get(endpoint, {limit:this.limit})
       .then((response : any) => {
-        if(!(response.entities || response.blogs))
+        if(!(response.entities || response.blogs ||response.questions))
           return false;
 
-        if(this.type == 'blog')
-          this.items = response.blogs;
-        else
-          this.items = response.entities;
-        this.inProgress = false;
+            switch(this.type){
+              case 'blog':
+                this.items = response.blogs;
+                break;
+              case 'question':
+                this.items = response.questions;
+                    break;
+              default:
+                this.items = response.entities;
+                this.inProgress = false;
+            }
       })
       .catch(function(e){
         this.inProgress = false;

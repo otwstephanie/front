@@ -69,7 +69,11 @@
                   <p>{{notification.fromObj.name}} commented on <span class="pseudo-link mdl-color-text--blue-grey-400">{{notification.entityObj.title}}</span></p>
                 </a>
               </template>
-
+              <template ngSwitchWhen="question">
+                <a [routerLink]="['/Question-View', {guid: notification.entityObj.guid}]">
+                  <p>{{notification.fromObj.name}} commented on <span class="pseudo-link mdl-color-text--blue-grey-400">{{notification.entityObj.title}}</span></p>
+                </a>
+              </template>
               <template ngSwitchDefault>
                 <a [routerLink]="['/Archive-View', {guid: notification.entityObj.guid}]">
                   <p>
