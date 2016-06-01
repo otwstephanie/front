@@ -19,7 +19,7 @@ import { BUTTON_COMPONENTS } from '../../../../components/buttons';
 })
 
 export class QuestionCard {
-  entity : any;
+  question : any;
   session = SessionFactory.build();
   minds: {};
 
@@ -28,7 +28,7 @@ export class QuestionCard {
 	}
 
   set object(value: any) {
-    this.entity = value;
+    this.question = value;
   }
 
 }

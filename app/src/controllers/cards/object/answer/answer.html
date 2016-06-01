@@ -1,74 +1,74 @@
-<div class="mdl-card minds-comment minds-block">
+<div class="mdl-card minds-answer minds-block">
   <div class="minds-avatar">
-    <a [routerLink]="['/Channel', {username: comment.ownerObj.username}]">
-      <img src="{{minds.cdn_url}}/icon/{{comment.ownerObj.guid}}/small" class="mdl-shadow--2dp"/>
+    <a [routerLink]="['/Channel', {username: answer.ownerObj.username}]">
+      <img src="{{minds.cdn_url}}/icon/{{answer.ownerObj.guid}}/small" class="mdl-shadow--2dp"/>
     </a>
   </div>
   <div class="minds-body">
-    <a [routerLink]="['/Channel', {username: comment.ownerObj.username}]" class="username mdl-color-text--blue-grey-500">{{comment.ownerObj.name}} @{{comment.ownerObj.username}}</a>
-    <span class="mdl-color-text--blue-grey-300 minds-comment-span minds-comment-bullet">{{comment.time_created * 1000 | date: 'medium'}}</span>
+    <a [routerLink]="['/Channel', {username: answer.ownerObj.username}]" class="username mdl-color-text--blue-grey-500">{{answer.ownerObj.name}} @{{answer.ownerObj.username}}</a>
+    <span class="mdl-color-text--blue-grey-300 minds-answer-span minds-comment-bullet">{{answer.time_created * 1000 | date: 'medium'}}</span>
 
     <div class="mdl-card__menu mdl-color-text--blue-grey-300">
       <button class="mdl-button minds-more mdl-button--icon" (click)="reportToggle = true"
-        *ngIf="comment.owner_guid != session.getLoggedInUser()?.guid">
+        *ngIf="answer.owner_guid != session.getLoggedInUser()?.guid">
         <i class="material-icons">flag</i>
       </button>
       <button class="mdl-button minds-more mdl-button--icon" (click)="delete(i)"
-        *ngIf="comment.owner_guid == session.getLoggedInUser()?.guid || session.isAdmin() || parent.owner_guid == session.getLoggedInUser()?.guid">
+        *ngIf="answer.owner_guid == session.getLoggedInUser()?.guid || session.isAdmin() || parent.owner_guid == session.getLoggedInUser()?.guid">
         <i class="material-icons">delete</i>
       </button>
       <button class="mdl-button minds-more mdl-button--icon" (click)="editing = !editing"
-        *ngIf="comment.owner_guid == session.getLoggedInUser()?.guid || session.isAdmin()">
+        *ngIf="answer.owner_guid == session.getLoggedInUser()?.guid || session.isAdmin()">
         <i class="material-icons">edit</i>
       </button>
-      <span class="minds-comments-voting" [hidden]="editing">
-          <minds-button-thumbs-up [object]="comment"></minds-button-thumbs-up>
-          <minds-button-thumbs-down [object]="comment"></minds-button-thumbs-down>
+      <span class="minds-answer-voting" [hidden]="editing">
+          <minds-button-thumbs-up [object]="answer"></minds-button-thumbs-up>
+          <minds-button-thumbs-down [object]="answer"></minds-button-thumbs-down>
       </span>
     </div>
 
     <p [hidden]="editing">
       <a class="m-mature-text-toggle"
-      (click)="comment.mature_visibility = !comment.mature_visibility"
-      *ngIf="attachment.shouldBeBlurred(comment) || attachment.isForcefullyShown(comment)"
-      [ngClass]="{ 'mdl-color-text--red-500': attachment.isForcefullyShown(comment) }"
+      (click)="answer.mature_visibility = !answer.mature_visibility"
+      *ngIf="attachment.shouldBeBlurred(answer) || attachment.isForcefullyShown(answer)"
+      [ngClass]="{ 'mdl-color-text--red-500': attachment.isForcefullyShown(answer) }"
       >
         <i class="material-icons m-material-icons-inline">explicit</i>
       </a>
       <span
-      [innerHtml]="(comment.description || '') | tags "
-      [ngClass]="{ 'm-mature-text': attachment.shouldBeBlurred(comment) }"
+      [innerHtml]="(answer.description || '') | tags "
+      [ngClass]="{ 'm-mature-text': attachment.shouldBeBlurred(answer) }"
       ></span>
     </p>
 
-    <div class="mdl-card m-comment-attachment" [hidden]="editing" *ngIf="(comment.perma_url && comment.title) || comment.custom_type == 'batch' || comment.custom_type == 'video'">
+    <div class="mdl-card m-answert-attachment" [hidden]="editing" *ngIf="(answer.perma_url && answer.title) || answer.custom_type == 'batch' || answert.custom_type == 'video'">
       <!-- Rich content -->
       <div class="m-rich-embed mdl-shadow--2dp cf"
-      *ngIf="comment.perma_url && comment.title"
-      [ngClass]="{ 'm-mature-content': attachment.shouldBeBlurred(comment), 'm-mature-content-shown': attachment.isForcefullyShown(comment) }"
+      *ngIf="answer.perma_url && answer.title"
+      [ngClass]="{ 'm-mature-content': attachment.shouldBeBlurred(answer), 'm-mature-content-shown': attachment.isForcefullyShown(answer) }"
       >
-        <div class="m-mature-overlay" (click)="comment.mature_visibility = !comment.mature_visibility">
+        <div class="m-mature-overlay" (click)="answer.mature_visibility = !answer.mature_visibility">
           <span class="m-mature-overlay-note m-mature-overlay-note-smaller">
             <i class="material-icons" title="Explicit content">explicit</i>
             <span>Click to confirm your are 18+</span>
           </span>
         </div>
-        <a [href]="comment.perma_url" class="thumbnail" target="_blank" *ngIf="comment.thumbnail_src">
-          <img [src]="comment.thumbnail_src" (error)="comment.thumbnail_src = null"/>
+        <a [href]="answer.perma_url" class="thumbnail" target="_blank" *ngIf="answer.thumbnail_src">
+          <img [src]="answer.thumbnail_src" (error)="answer.thumbnail_src = null"/>
         </a>
-        <a [href]="comment.perma_url" target="_blank" class="meta mdl-color-text--blue-grey-900" [ngClass]="{ 'm-has-thumbnail': comment.thumbnail_src }">
-          <h2 class="mdl-card__title-text mdl-typography--font-medium" *ngIf="comment.title">{{comment.title}}</h2>
-          <p *ngIf="comment.blurb">{{comment.blurb}}</p>
-          <p class="m-url mdl-color-text--blue-grey-400">{{comment.perma_url | domain}}</p>
+        <a [href]="answer.perma_url" target="_blank" class="meta mdl-color-text--blue-grey-900" [ngClass]="{ 'm-has-thumbnail': answer.thumbnail_src }">
+          <h2 class="mdl-card__title-text mdl-typography--font-medium" *ngIf="answer.title">{{answer.title}}</h2>
+          <p *ngIf="answer.blurb">{{answer.blurb}}</p>
+          <p class="m-url mdl-color-text--blue-grey-400">{{answer.perma_url | domain}}</p>
         </a>
       </div>
 
       <!-- Custom type ::  video -->
       <div class="item item-image item-image-video"
-      [ngClass]="{ 'm-mature-content': attachment.shouldBeBlurred(comment), 'm-mature-content-shown': attachment.isForcefullyShown(comment) }"
-      *ngIf="comment.custom_type == 'video'"
+      [ngClass]="{ 'm-mature-content': attachment.shouldBeBlurred(answer), 'm-mature-content-shown': attachment.isForcefullyShown(answer) }"
+      *ngIf="answer.custom_type == 'video'"
       >
-          <div class="m-mature-overlay" (click)="comment.mature_visibility = !comment.mature_visibility">
+          <div class="m-mature-overlay" (click)="answer.mature_visibility = !answer.mature_visibility">
             <span class="m-mature-overlay-note">
               <i class="material-icons" title="Explicit content">explicit</i>
               <span>Click to confirm your are 18+</span>
@@ -81,33 +81,33 @@
               style="background:#000;"
               controls="true"
               muted="false"
-              [poster]="comment.custom_data.thumbnail_src"
+              [poster]="answer.custom_data.thumbnail_src"
               [loop]="false"
               [autoplay]="false"
               [visibleplay]="false"
               [src]="[{ 'res': '720', 'uri': 'api/v1/archive/' + comment.custom_data.guid + '/play', 'type': 'video/mp4' }]"
               [guid]="comment.custom_data.guid"
-              [playCount]="comment['play:count']"
+              [playCount]="answer['play:count']"
             >
           </minds-video>
        </div>
 
       <!-- Custom type:: batch -->
       <div class="item item-image allow-select"
-      [ngClass]="{ 'm-mature-content': attachment.shouldBeBlurred(comment), 'm-mature-content-shown': attachment.isForcefullyShown(comment) }"
-      *ngIf="!editing && comment.custom_type == 'batch'"
+      [ngClass]="{ 'm-mature-content': attachment.shouldBeBlurred(answer), 'm-mature-content-shown': attachment.isForcefullyShown(answer) }"
+      *ngIf="!editing && answer.custom_type == 'batch'"
       >
-        <div class="m-mature-overlay" (click)="comment.mature_visibility = !comment.mature_visibility">
+        <div class="m-mature-overlay" (click)="answer.mature_visibility = !answer.mature_visibility">
           <span class="m-mature-overlay-note">
             <i class="material-icons" title="Explicit content">explicit</i>
             <span>Click to confirm your are 18+</span>
           </span>
         </div>
-        <a [routerLink]="['/Archive-View', {guid: comment.attachment_guid}]" *ngIf="comment.attachment_guid">
-          <img [src]="comment.custom_data[0].src" style="width:100%" class="mdl-shadow--2dp" (error)="comment.custom_data[0].src = 'https://www.minds.com/assets/logos/medium.png'">
+        <a [routerLink]="['/Archive-View', {guid: answer.attachment_guid}]" *ngIf="answer.attachment_guid">
+          <img [src]="answer.custom_data[0].src" style="width:100%" class="mdl-shadow--2dp" (error)="answer.custom_data[0].src = 'https://www.minds.com/assets/logos/medium.png'">
         </a>
 
-        <img *ngIf="!comment.attachment_guid" [src]="comment.custom_data[0].src" style="width:100%" (error)="comment.custom_data[0].src = 'https://www.minds.com/assets/logos/medium.png'">
+        <img *ngIf="!answer.attachment_guid" [src]="answer.custom_data[0].src" style="width:100%" (error)="answer.custom_data[0].src = 'https://www.minds.com/assets/logos/medium.png'">
       </div>
     </div>
 
@@ -116,7 +116,7 @@
     <div class="minds-editable-container" *ngIf="editing">
       <!-- Please not the intentional single way binding for ngModel, we want to be able to cancel our changes -->
       <textarea class="mdl-card__supporting-text message"
-        [ngModel]="comment.description"
+        [ngModel]="answer.description"
         #edit
         [autoGrow]
         (keydown.enter)="applyAndSave(edit, $event)"
@@ -124,8 +124,8 @@
         (keyup)="getPostPreview(edit)"
         [disabled]="inProgress"
         ></textarea>
-      <span class="minds-comment-span" *ngIf="canPost">Press ESC to cancel</span>
-      <div class="minds-comment-span mdl-color-text--red-500" *ngIf="!canPost && triedToPost">
+      <span class="minds-answer-span" *ngIf="canPost">Press ESC to cancel</span>
+      <div class="minds-answer-span mdl-color-text--red-500" *ngIf="!canPost && triedToPost">
         Please wait until the upload is complete.
       </div>
 
@@ -182,4 +182,4 @@
   </div>
 </div>
 
-<m-modal-report *ngIf="reportToggle" [open]="true" (closed)="reportToggle = false" [object]="comment"></m-modal-report>
+<m-modal-report *ngIf="reportToggle" [open]="true" (closed)="reportToggle = false" [object]="answer"></m-modal-report>

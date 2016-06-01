@@ -1,31 +1,34 @@
 <div class="mdl-card__title minds-video-thumbnail"
 	style="height:200px; background-color:#333; background-position: center center; background-size:cover;"
-	[ngStyle]="{'background': '#333 url(' + entity.thumbnail_src + ') center center / cover'}"
-	[routerLink]="['/Archive-View', {guid: entity.guid}]"
+	[ngStyle]="{'background': '#333 url(' + question.thumbnail_src + ') center center / cover'}"
+
+	[routerLink]="['/Archive-View', {guid: question.guid}]"
 	>
 </div>
 
 <!-- Owner block -->
-<div class="mdl-card__supporting-text mdl-color-text--grey-600 m-title-block" *ngIf="entity.ownerObj && entity.ownerObj.username">
+<div class="mdl-card__supporting-text mdl-color-text--grey-600 m-title-block" *ngIf="question.ownerObj && question.ownerObj.username">
 
 		<a [routerLink]="['/Archive-View', {guid: entity.guid}]" class="mdl-color-text--blue-grey-700">
-			<strong>{{ entity.title }}</strong>
+			<strong>{{ question.title }}</strong>
 		</a>
-
+		<div class="mdl-card__supporting-text">{{question.description}}</div>
 		<div class="m-inline-owner-block">
-			<a [routerLink]="['/Channel', {username: entity.ownerObj.username}]" class="mdl-color-text--blue-grey-300">
-				<img src="/icon/{{entity.ownerObj.guid}}/small" class="mdl-shadow--2dp"/>
-				{{entity.ownerObj.username}}
+			<a [routerLink]="['/Channel', {username: question.ownerObj.username}]" class="mdl-color-text--blue-grey-300">
+				<img src="/icon/{{question.ownerObj.guid}}/small" class="mdl-shadow--2dp"/>
+				{{question.ownerObj.username}}
 			</a>
-			<span>{{ entity.time_created * 1000 | date:'mediumDate' }}</span>
+			<span>{{ question.time_created * 1000 | date:'mediumDate' }}</span>
 		</div>
 
 </div>
 
 <div class="mdl-card__supporting-text mdl-color--blue-grey-50 m-action-tabs">
-	<minds-button-thumbs-up [object]="entity"></minds-button-thumbs-up>
-	<minds-button-thumbs-down [object]="entity"></minds-button-thumbs-down>
-	<minds-button-comment [object]="entity" [routerLink]="['/Archive-View', {guid: entity.guid}]"></minds-button-comment>
-	<minds-button-remind [object]="entity"></minds-button-remind>
-	<minds-button-feature [object]="entity" *ngIf="session.isAdmin()"></minds-button-feature>
+	<minds-button-thumbs-up [object]="question"></minds-button-thumbs-up>
+	<minds-button-thumbs-down [object]="question"></minds-button-thumbs-down>
+	<minds-button-answer [object]="question" [routerLink]="['/Archive-View', {guid: question.guid}]"></minds-button-answer>
+	<!-- <minds-button-comment [object]="entity" [routerLink]="['/Archive-View', {guid: entity.guid}]"></minds-button-comment> -->
+	<minds-button-remind [object]="question"></minds-button-remind>
+	<minds-button-feature [object]="question" *ngIf="session.isAdmin()"></minds-button-feature>
+	<minds-button-delete [object]="question" *ngIf="session.isAdmin()"></minds-button-delete>
 </div>
