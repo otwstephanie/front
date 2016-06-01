@@ -1,17 +1,17 @@
 @import "defaults";
 
-minds-comments{
+minds-answers{
   margin-top:50px;
   width:100%;
 
-  .load-earlier-comments{
+  .load-earlier-answers{
     margin-left: $minds-margin*2;
     font-size: 12px;
     font-weight:bold;
     color: #888;
   }
 
-  .minds-comment{
+  .minds-answer{
     min-height:0;
     margin:0;
     padding:$minds-padding $minds-padding*2;
@@ -39,7 +39,7 @@ minds-comments{
       top:0;
     }
 
-    &.minds-comment-post{
+    &.minds-answer-post{
       border-bottom: 0;
       padding-bottom: $minds-padding;
     }
@@ -62,12 +62,12 @@ minds-comments{
         font-weight:bold;
       }
 
-      .minds-comment-span{
+      .minds-answer-span{
         font-size: 10px;
         position: relative;
         top: -1px;
 
-        &.minds-comment-bullet:before{
+        &.minds-answer-bullet:before{
           content:'·';
           font-weight:bold;
           padding: 0 $minds-padding;
@@ -83,7 +83,7 @@ minds-comments{
       }
     }
 
-    .minds-comments-voting {
+    .minds-answer-voting {
       display: inline-block;
       position: relative;
       top: 6px;
@@ -115,7 +115,7 @@ minds-comments{
   }
 
   .m-comment-attachment,
-  .m-comments-composer,
+  .m-answer-composer,
   .m-editable-attachment-container {
 
     background: transparent;
@@ -162,7 +162,7 @@ minds-comments{
 
   }
 
-  .m-comment-attachment {
+  .m-answer-attachment {
     box-sizing: border-box;
     padding: 0;
 
@@ -171,7 +171,7 @@ minds-comments{
     }
   }
 
-  .m-comments-composer {
+  .m-answer-composer-composer {
     position: relative;
 
     form{
@@ -192,7 +192,7 @@ minds-comments{
     }
   }
 
-  .m-comments-composer form textarea,
+  .m-answer-composer form textarea,
   .minds-editable-container textarea {
     width: 100%;
     padding: $minds-padding ($minds-padding + 56px) $minds-padding $minds-padding;
@@ -200,7 +200,7 @@ minds-comments{
   }
 
 
-  .m-comments-composer .mdl-card__actions {
+  .m-answer-composer .mdl-card__actions {
     top: $minds-padding / 2;
     right: $minds-padding;
   }
@@ -210,7 +210,7 @@ minds-comments{
     right: $minds-padding + 14px;
   }
 
-  .m-comments-composer .mdl-card__actions,
+  .m-answer-composer .mdl-card__actions,
   .minds-editable-container .mdl-card__actions {
     position: absolute;
     z-index: 250;
