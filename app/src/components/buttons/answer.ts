@@ -9,7 +9,7 @@ import { Client } from '../../services/api';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a class="mdl-color-text--blue-grey-500" [ngClass]="{'selected': object['answers:count'] > 0 }">
-      <i class="material-icons">chat_bubble</i>
+      <i class="material-icons">record_voice_over</i>
       <counter *ngIf="object['answers:count'] > 0">{{object['answers:count']}}</counter>
     </a>
   `,
